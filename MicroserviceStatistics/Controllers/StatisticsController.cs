@@ -7,7 +7,7 @@ namespace MicroserviceStatistics.Controllers
     [ApiController]
     public class StatisticsController : ControllerBase
     {
-        public static readonly EventLogsStats BaseStats = new EventLogsStats(1,2); // demo inmemory eventlogs
+        public static readonly EventLogsStats BaseStats = new EventLogsStats(2,1); // demo inmemory eventlogs
 
         // GET: api/<EventLogsController>
         [HttpGet]

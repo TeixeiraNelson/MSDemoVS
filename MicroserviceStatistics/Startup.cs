@@ -29,6 +29,10 @@ namespace MicroserviceStatistics
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+            });
             services.AddMassTransit(x =>
             {
                 x.AddConsumer<EventLogsConsumer>();
@@ -65,6 +69,7 @@ namespace MicroserviceStatistics
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MicroserviceStatistics v1"));
             }
 
+            app.UseCors(options => options.AllowAnyOrigin());
             app.UseHttpsRedirection();
 
             app.UseRouting();

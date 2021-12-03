@@ -28,6 +28,10 @@ namespace MicroserviceEventlogs
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(c =>
+            {
+                c.AddPolicy("AllowOrigin", options => options.AllowAnyOrigin());
+            });
             services.AddMassTransit(x =>
             {
                 x.AddBus(provider => Bus.Factory.CreateUsingRabbitMq(config =>
@@ -56,6 +60,8 @@ namespace MicroserviceEventlogs
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "MicroserviceEventlogs v1"));
             }
+
+            app.UseCors(options => options.AllowAnyOrigin());
 
             app.UseHttpsRedirection();
 
